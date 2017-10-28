@@ -1,63 +1,58 @@
 import React from 'react'
-import { StyleSheet, Text, View, ScrollView, Button } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation'
 import Home from './components/Home.js'
 import AddCard from './components/AddCard.js'
+import AddDeck from './components/AddDeck.js'
+import Deck from './components/Deck.js'
+import Question from './components/Question.js'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 
-
-const HomeScreen = ({ navigation }) => (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Home Screen</Text>
-    <Text>Open up App.js to start working on your app!</Text>
-    <Text>Changes you make will automatically reload.</Text>
-    <Text>Shake your phone to open the developer menu.</Text>
-    <Button
-      onPress={() => navigation.navigate('Details')}
-      title="Go to details"
-    />
-  </View>
-);
-
-const DetailsScreen = () => (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Details Screen</Text>
-  </View>
-);
-
-const RootNavigator = StackNavigator({
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: {
-      headerTitle: 'Home',
-    },
+const Tabs = TabNavigator({
+  Decks: {
+    screen: Home,
   },
-  Details: {
-    screen: DetailsScreen,
-    navigationOptions: {
-      headerTitle: 'Details',
-    },
+  AddDeck: {
+    screen: AddDeck,
   },
 });
-// {/* <RootNavigator /> */} {/* <ScrollView style={styles.container}> */}    <HomeScreen />  // </ScrollView>
+
+const RootTabs = StackNavigator({
+  Home: {
+    screen: Tabs,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  AddDeck: {
+    screen: AddDeck
+  },
+  Card: {
+    screen: AddCard
+  },
+  Deck: {
+    screen: Deck
+  },
+  Question: {
+    screen: Question
+  }
+
+})
+
 
 export default class App extends React.Component {
   render() {
     return (
+      <Provider store={createStore(reducer)}>
+        <View style={{ flex: 1 }}>
+          <RootTabs />
 
-      <View style={{flex: 1}}>
-        <Home />
-
-      </View>
-
+        </View>
+      </Provider >
     )
   }
 }
 
-// const styles = StyleSheet.create({
-//  // container: {
-//     //flex: 1,
-//     // backgroundColor: '#fff',
-//     // alignItems: 'center',
-//     // justifyContent: 'center',
-//   },
-// });
+

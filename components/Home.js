@@ -1,17 +1,31 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, ScrollView, Button, FlatList, TouchableOpacity } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons'
+import Swipeout from 'react-native-swipeout'
 
 class Home extends Component {
 
     _keyExtractor = (item, index) => item.id;
 
     renderList = (obj) => {
+        var swipeoutBtns = [
+            {
+
+                text: 'Delete',
+                backgroundColor: 'red'
+            }
+        ]
         return (
-            <View style={styles.container}>
-                <Text style={styles.text}>  {obj.item.name} </Text>
-                <Text style={{ fontSize: 12 }}> {obj.item.card} </Text>
-            </View>
+            <Swipeout right={swipeoutBtns} autoClose backgroundColor="#faebd7" >
+
+                <TouchableOpacity style={[styles.container, { backgroundColor: '#FFF' }]}
+                    onPress={() => this.props.navigation.navigate('Deck')}>
+
+                    <Text style={styles.text}>  {obj.item.name} </Text>
+                    <Text style={{ fontSize: 12 }}> {obj.item.card} </Text>
+
+                </TouchableOpacity>
+            </Swipeout>
         )
     }
 
@@ -23,18 +37,18 @@ class Home extends Component {
             { id: 2, name: 'react', card: '1 cards' },
             { id: 3, name: 'React-Natives', card: '4 cards' }
         ]
-        // console.log(data)
         return (
-            <ScrollView style={{ flex: 1,padding:20 }}>
-                <Text style={{ marginLeft: 30 }} > Decks  </Text>
-                <View style={{ marginTop: 50 }} >
+            <ScrollView style={{ flex: 1, padding: 20 }}>
+                <View style={{ marginTop: 30 }} >
                     <FlatList data={data}
                         renderItem={this.renderList}
                         keyExtractor={this._keyExtractor}
 
                     />
                 </View>
-                <TouchableOpacity style={{  padding: 10, bottom: 0,alignItems: 'center'}} >
+                <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
+                    onPress={() => this.props.navigation.navigate(
+                        'AddDeck')} >
                     <MaterialIcons name="add-circle-outline" size={32} color="green" />
                 </TouchableOpacity>
 
@@ -47,7 +61,7 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        //marginTop: 20,
+        margin: 10,
         padding: 10,
         borderBottomWidth: 20,
         borderTopWidth: 20,
@@ -72,14 +86,11 @@ const styles = StyleSheet.create({
 
     },
     button: {
-        margin: 5,
-        backgroundColor: 'purple',
-        padding: 10,
-        borderRadius: 2,
-        
+        margin: 9,
+        padding: 15,
+        borderRadius: 4
     }
 })
 
 export default Home
 
-//style={ styles.button}
