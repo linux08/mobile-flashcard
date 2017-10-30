@@ -6,11 +6,12 @@ const key = 'Flashcard:Lin'
 
 export function addCardToDeck(data) {
 
-    return AsyncStorage.setItem(key, data)
+    console.log(data)
+    // return AsyncStorage.setItem(key, data)
 }
 
-export function removeDeck(id){
-    
+export function removeDeck(id) {
+
     // AsyncStorage.removeItem(key)
     //     .then((er) => {
     //         console.log(er)
@@ -21,9 +22,6 @@ export function removeDeck(id){
 }
 
 export function getDecks() {
-
-
-
     return AsyncStorage.getItem(key)
         .then((results) => {
             console.log(results)

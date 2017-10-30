@@ -29,20 +29,29 @@ const RootTabs = StackNavigator({
     }
   },
   AddDeck: {
-    screen: AddDeck
+    screen: AddDeck,
+    navigationOptions: {
+      headerTitle: null,
+    }
   },
   Card: {
-    screen: AddCard
+    screen: AddCard,
+    navigationOptions: {
+      headerTitle: 'Add Card',
+    }
   },
   Deck: {
     screen: Deck
   },
   Question: {
-    screen: Question
+    screen: Question,
+    navigationOptions: {
+      headerTitle: 'Quiz',
+    }
   }
 
 })
- 
+
 const middewares = [
   // Add other middleware on this line...
 

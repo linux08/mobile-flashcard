@@ -8,11 +8,10 @@ import { getDecks } from '../actions/index'
 
 class Home extends Component {
     state = {
-        decks: []
+        loaded: false
     }
     componentDidMount() {
         this.props.getDecks()
-        console.log(this.props.deck)
     }
 
     _keyExtractor = (item, index) => item.id;
@@ -29,7 +28,7 @@ class Home extends Component {
             <Swipeout right={swipeoutBtns} autoClose backgroundColor="#faebd7" >
 
                 <TouchableOpacity style={[styles.container, { backgroundColor: '#FFF' }]}
-                    onPress={() => this.props.navigation.navigate('Deck')}>
+                    onPress={() => this.props.navigation.navigate('Deck',{name: obj.item.title,length: obj.item.amount})}>
                     <Text style={styles.text}>  {obj.item.title} </Text>
                     <Text style={{ fontSize: 12 }}> {obj.item.amount} </Text>
 
@@ -54,33 +53,37 @@ class Home extends Component {
 
 
         return (
-            (data.length == 0) ?
+            (this.state.loaded) ?
                 <View>
+                    <Text> Loading </Text>
+                </View> :
+            (data.length == 0) ?
                     <View>
-                        <Text> No Deck at the moment </Text>
+                        <View>
+                            <Text> No Deck at the moment </Text>
+                        </View>
+                        <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
+                            onPress={() => this.props.navigation.navigate(
+                                'AddDeck')} >
+                            <MaterialIcons name="add-circle-outline" size={32} color="green" />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
-                        onPress={() => this.props.navigation.navigate(
-                            'AddDeck')} >
-                        <MaterialIcons name="add-circle-outline" size={32} color="green" />
-                    </TouchableOpacity>
-                </View>
-                :
-                <ScrollView style={{ flex: 1, padding: 20 }}>
-                    <View style={{ marginTop: 30 }} >
-                        <FlatList data={data}
-                            renderItem={this.renderList}
-                            keyExtractor={this._keyExtractor}
+                    :
+                    <ScrollView style={{ flex: 1, padding: 20 }}>
+                        <View style={{ marginTop: 30 }} >
+                            <FlatList data={data}
+                                renderItem={this.renderList}
+                                keyExtractor={this._keyExtractor}
 
-                        />
-                    </View>
-                    <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
-                        onPress={() => this.props.navigation.navigate(
-                            'AddDeck')} >
-                        <MaterialIcons name="add-circle-outline" size={32} color="green" />
-                    </TouchableOpacity>
+                            />
+                        </View>
+                        <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
+                            onPress={() => this.props.navigation.navigate(
+                                'AddDeck')} >
+                            <MaterialIcons name="add-circle-outline" size={32} color="green" />
+                        </TouchableOpacity>
 
-                </ScrollView >
+                    </ScrollView >
 
         )
     }
