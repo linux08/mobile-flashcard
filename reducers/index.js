@@ -1,11 +1,15 @@
 
 
-function entries (state = {}, action) {
+function entries(state = {}, action) {
   switch (action.type) {
-  
-    default :
+
+    case 'RECEIVE_DECK':
+      return action.decks
+
+    default:
       return state
   }
 }
 
 export default entries
+

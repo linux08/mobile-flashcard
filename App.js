@@ -6,9 +6,11 @@ import AddCard from './components/AddCard.js'
 import AddDeck from './components/AddDeck.js'
 import Deck from './components/Deck.js'
 import Question from './components/Question.js'
-import { createStore } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
+import thunkMiddleware from 'redux-thunk'
+import logger from 'redux-logger'
 
 const Tabs = TabNavigator({
   Decks: {
@@ -40,12 +42,21 @@ const RootTabs = StackNavigator({
   }
 
 })
+ 
+const middewares = [
+  // Add other middleware on this line...
 
+  // thunk middleware can also accept an extra argument to be passed to each thunk action
+  // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
+  thunkMiddleware//, logger
+]
+
+const store = createStore(reducer, compose(applyMiddleware(...middewares)))
 
 export default class App extends React.Component {
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <View style={{ flex: 1 }}>
           <RootTabs />
 

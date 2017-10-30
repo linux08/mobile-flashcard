@@ -2,8 +2,18 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, ScrollView, Button, FlatList, TouchableOpacity } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import Swipeout from 'react-native-swipeout'
+import { connect } from 'react-redux'
+import * as API from '../utils/api'
+import { getDecks } from '../actions/index'
 
 class Home extends Component {
+    state = {
+        decks: []
+    }
+    componentDidMount() {
+        this.props.getDecks()
+        console.log(this.props.deck)
+    }
 
     _keyExtractor = (item, index) => item.id;
 
@@ -20,9 +30,8 @@ class Home extends Component {
 
                 <TouchableOpacity style={[styles.container, { backgroundColor: '#FFF' }]}
                     onPress={() => this.props.navigation.navigate('Deck')}>
-
-                    <Text style={styles.text}>  {obj.item.name} </Text>
-                    <Text style={{ fontSize: 12 }}> {obj.item.card} </Text>
+                    <Text style={styles.text}>  {obj.item.title} </Text>
+                    <Text style={{ fontSize: 12 }}> {obj.item.amount} </Text>
 
                 </TouchableOpacity>
             </Swipeout>
@@ -32,27 +41,46 @@ class Home extends Component {
 
 
     render() {
-        const data = [
-            { id: 1, name: 'Udacicards', card: '3 cards' },
-            { id: 2, name: 'react', card: '1 cards' },
-            { id: 3, name: 'React-Natives', card: '4 cards' }
-        ]
+        let a = this.props.deck
+
+        let data = Object.keys(a).reduce((pre, item) => {
+            pre.push({
+                id: Math.random(),
+                title: a[item].title,
+                amount: a[item].questions.length
+            })
+            return pre
+        }, [])
+
+
         return (
-            <ScrollView style={{ flex: 1, padding: 20 }}>
-                <View style={{ marginTop: 30 }} >
-                    <FlatList data={data}
-                        renderItem={this.renderList}
-                        keyExtractor={this._keyExtractor}
-
-                    />
+            (data.length == 0) ?
+                <View>
+                    <View>
+                        <Text> No Deck at the moment </Text>
+                    </View>
+                    <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
+                        onPress={() => this.props.navigation.navigate(
+                            'AddDeck')} >
+                        <MaterialIcons name="add-circle-outline" size={32} color="green" />
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
-                    onPress={() => this.props.navigation.navigate(
-                        'AddDeck')} >
-                    <MaterialIcons name="add-circle-outline" size={32} color="green" />
-                </TouchableOpacity>
+                :
+                <ScrollView style={{ flex: 1, padding: 20 }}>
+                    <View style={{ marginTop: 30 }} >
+                        <FlatList data={data}
+                            renderItem={this.renderList}
+                            keyExtractor={this._keyExtractor}
 
-            </ScrollView >
+                        />
+                    </View>
+                    <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
+                        onPress={() => this.props.navigation.navigate(
+                            'AddDeck')} >
+                        <MaterialIcons name="add-circle-outline" size={32} color="green" />
+                    </TouchableOpacity>
+
+                </ScrollView >
 
         )
     }
@@ -92,5 +120,13 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Home
+function mapStateToProps(state) {
+
+    return {
+        deck: state
+    }
+}
+
+
+export default connect(mapStateToProps, { getDecks })(Home)
 

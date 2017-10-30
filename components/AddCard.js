@@ -3,20 +3,42 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 
 class AddCard extends Component {
 
+    state = {
+        question: '',
+        answer: ''
+    }
+
+    submit = () => {
+        console.log('button pressed')
+        console.log(this.state.question)
+        console.log(this.state.answer)
+       // console.log(this.state.text)
+       // API.saveDeckTitle(this.state.text)
+       // this.props.navigation.navigate('Home')
+        //() => this.props.navigation.navigate('Home')
+    }
+
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.subcontainer}>
                     <Text style={styles.text} > Question </Text>
-                    <TextInput style={styles.textinput} editable={true} maxLength={40} />
+                    <TextInput style={styles.textinput}
+                        editable={true} maxLength={40}
+                        value={this.state.question}
+                        onChangeText={question => this.setState({ question })} />
                 </View>
                 <View style={styles.subcontainer}>
                     <Text style={styles.text} > Answer </Text>
-                    <TextInput style={styles.textinput} editable={true} maxLength={40} />
+                    <TextInput style={styles.textinput}
+                        editable={true} maxLength={40}
+                        value={this.state.answer}
+                        onChangeText={answer => this.setState({ answer })}
+                    />
                 </View>
-                <TouchableOpacity style={styles.button}  onPress={() => this.props.navigation.navigate('Home')} >
-                    <Text style={{ color: 'white'}}> Submit </Text>
+                <TouchableOpacity style={styles.button} onPress={this.submit} >
+                    <Text style={{ color: 'white' }}> Submit </Text>
                 </TouchableOpacity>
 
             </View>
@@ -54,7 +76,7 @@ const styles = StyleSheet.create({
         marginRight: 70
     },
     textinput: {
-        
+
         margin: 15,
         height: 40,
         width: 300,
