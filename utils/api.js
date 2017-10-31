@@ -4,21 +4,25 @@ import { AsyncStorage } from 'react-native'
 const key = 'Flashcard:Lin'
 
 
-export function addCardToDeck(data) {
-
-    console.log(data)
-    // return AsyncStorage.setItem(key, data)
+export function addCardToDeck(title, data) {
+    return AsyncStorage.getItem(key)
+        .then((result) => {
+            const deck = JSON.parse(result)
+            deck[title].questions.push(data)
+             AsyncStorage.setItem(key, JSON.stringify(deck))
+             return JSON.parse(result)
+        })
 }
 
-export function removeDeck(id) {
+export function removeDeck() {
 
-    // AsyncStorage.removeItem(key)
-    //     .then((er) => {
-    //         console.log(er)
-    //         // keys k1 & k2 removed, if they existed
-    //         // do most stuff after removal (if you want)
-    //         console.log('successfully deleted')
-    //     });
+    AsyncStorage.removeItem(key)
+        .then((er) => {
+            console.log(er)
+            // keys k1 & k2 removed, if they existed
+            // do most stuff after removal (if you want)
+            console.log('successfully deleted')
+        });
 }
 
 export function getDecks() {
@@ -37,7 +41,7 @@ export function getDeck() {
 }
 
 export function saveDeckTitle(data) {
-    // console.log(data)
+
     let b = data
     let a = {
         [data]: {
@@ -45,8 +49,6 @@ export function saveDeckTitle(data) {
             questions: []
         }
     }
-    // console.log(a)
-
     return AsyncStorage.mergeItem(key, JSON.stringify(a))
 
     // return AsyncStorage.setItem(key, a)

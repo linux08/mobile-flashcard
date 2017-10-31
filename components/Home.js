@@ -12,6 +12,7 @@ class Home extends Component {
     }
     componentDidMount() {
         this.props.getDecks()
+        // API.removeDeck()
     }
 
     _keyExtractor = (item, index) => item.id;
@@ -28,7 +29,7 @@ class Home extends Component {
             <Swipeout right={swipeoutBtns} autoClose backgroundColor="#faebd7" >
 
                 <TouchableOpacity style={[styles.container, { backgroundColor: '#FFF' }]}
-                    onPress={() => this.props.navigation.navigate('Deck',{name: obj.item.title,length: obj.item.amount})}>
+                    onPress={() => this.props.navigation.navigate('Deck', { name: obj.item.title, length: obj.item.amount })}>
                     <Text style={styles.text}>  {obj.item.title} </Text>
                     <Text style={{ fontSize: 12 }}> {obj.item.amount} </Text>
 
@@ -41,23 +42,27 @@ class Home extends Component {
 
     render() {
         let a = this.props.deck
-
-        let data = Object.keys(a).reduce((pre, item) => {
-            pre.push({
-                id: Math.random(),
-                title: a[item].title,
-                amount: a[item].questions.length
-            })
-            return pre
-        }, [])
-
+        let data
+        if (a === null) {
+            data = []
+        }
+        else {
+            data = Object.keys(a).reduce((pre, item) => {
+                pre.push({
+                    id: Math.random(),
+                    title: a[item].title,
+                    amount: a[item].questions.length
+                })
+                return pre
+            }, [])
+        }
 
         return (
             (this.state.loaded) ?
                 <View>
                     <Text> Loading </Text>
                 </View> :
-            (data.length == 0) ?
+                (data.length == 0) ?
                     <View>
                         <View>
                             <Text> No Deck at the moment </Text>
@@ -78,8 +83,7 @@ class Home extends Component {
                             />
                         </View>
                         <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
-                            onPress={() => this.props.navigation.navigate(
-                                'AddDeck')} >
+                            onPress={() => this.props.navigation.navigate('AddDeck')} >
                             <MaterialIcons name="add-circle-outline" size={32} color="green" />
                         </TouchableOpacity>
 

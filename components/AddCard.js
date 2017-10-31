@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import * as API from '../utils/api'
+import { connect } from 'react-redux'
+import { addCard } from '../actions/index'
 
 class AddCard extends Component {
 
@@ -9,17 +12,18 @@ class AddCard extends Component {
     }
 
     submit = () => {
-        console.log('button pressed')
-        console.log(this.state.question)
-        console.log(this.state.answer)
-       // console.log(this.state.text)
-       // API.saveDeckTitle(this.state.text)
-       // this.props.navigation.navigate('Home')
-        //() => this.props.navigation.navigate('Home')
+
+        const data = {
+            question: this.state.question,
+            answer: this.state.answer
+        }
+        this.props.addCard(this.props.navigation.state.params.name,data)
     }
 
 
     render() {
+        console.log(this.props.deck)
+        
         return (
             <View style={styles.container}>
                 <View style={styles.subcontainer}>
@@ -86,4 +90,12 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AddCard
+function mapStateToProps(state) {
+
+    return {
+        deck: state
+    }
+}
+
+
+export default connect(mapStateToProps, { addCard })(AddCard)

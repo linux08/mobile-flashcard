@@ -6,6 +6,8 @@ function entries(state = {}, action) {
     case 'RECEIVE_DECK':
       return action.decks
 
+    case 'ADD_CARD_TO_DECK':
+      return action.deck
     default:
       return state
   }

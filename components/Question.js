@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
-
-import SwipeCards from 'react-native-swipe-cards';
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native'
+import SwipeCards from 'react-native-swipe-cards'
+import { connect } from 'react-redux' 
 
 
 
@@ -63,7 +63,18 @@ class Question extends Component {
         console.log(`Maybe for ${card.text}`)
     }
     render() {
+        console.log('at question')
+       // console.log(this.props.deck)
+        // let deck = this.props.deck
 
+        // data = Object.keys(deck).reduce((pre, item) => {
+        //   let b = item.map((b) =>{
+        //     console.log(b)
+        //   })
+        //   console.log(b)
+        //     return pre
+        // }, [])
+        // console.log(data)
         return (
             <SwipeCards
 
@@ -120,4 +131,12 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Question
+function mapStateToProps(state) {
+    
+        return {
+            deck: state
+        }
+    }
+    
+    
+    export default connect(mapStateToProps)(Question)

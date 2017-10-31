@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-
+import { connect } from 'react-redux'
 
 class Deck extends Component {
 
@@ -58,4 +58,13 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Deck
+
+function mapStateToProps(state) {
+    
+        return {
+            deck: state
+        }
+    }
+    
+    
+    export default connect(mapStateToProps)(Deck)
