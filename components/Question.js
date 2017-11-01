@@ -14,17 +14,17 @@ class Card extends Component {
         let card = this.props.questions
         console.log('at card')
         console.log(card)
-      
+
         let cardComponent = card.map((p) => {
-            <View style={[styles.card, { backgroundColor: 'blue' }]} >
+            return (<View style={[styles.card, { backgroundColor: 'blue' }]} >
                 <Text style={styles.text}>p.question </Text>
                 <TouchableOpacity style={styles.button} onPress={() => alert('press')} >
                     <Text style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}> View Answer </Text>
                 </TouchableOpacity>
-            </View>
+            </View>)
         })
         return (
-            < cardComponent />
+            {cardComponent}
 
         )
     }
