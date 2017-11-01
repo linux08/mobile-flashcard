@@ -24,7 +24,7 @@ class Card extends Component {
             </View>)
         })
         return (
-            {cardComponent}
+            { cardComponent }
 
         )
     }
