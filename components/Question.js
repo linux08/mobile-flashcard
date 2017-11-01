@@ -12,20 +12,19 @@ class Card extends Component {
     render() {
 
         let card = this.props.questions
-        console.log('at card')
-        console.log(card)
-
-        let cardComponent = card.map((p) => {
-            return (<View style={[styles.card, { backgroundColor: 'blue' }]} >
-                <Text style={styles.text}>p.question </Text>
-                <TouchableOpacity style={styles.button} onPress={() => alert('press')} >
+        let cardComponent = card.map((p, index) => {
+            return (<View key={index} style={[styles.card, { backgroundColor: 'blue' }]} >
+                <Text style={styles.text}>{p.question} </Text>
+                <TouchableOpacity style={styles.button} onPress={() => alert(`${p.answer}`)} >
                     <Text style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}> View Answer </Text>
                 </TouchableOpacity>
             </View>)
         })
         return (
-            { cardComponent }
 
+            <View>
+                {cardComponent}
+            </View>
         )
     }
 }
@@ -49,7 +48,9 @@ class Question extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            card: []
+            card: [],
+            correct: 0,
+            wrong: 0
         };
     }
 
@@ -64,15 +65,22 @@ class Question extends Component {
     }
 
     handleYup(card) {
+        this.setState((state, props) => ({
+            correct: state.correct + 1
+        }));
         console.log(`Yup for ${card.answer}`)
     }
     handleNope(card) {
+        this.setState((state, props) => ({
+            wrong: state.wrong + 1
+        }));
         console.log(`Nope for ${card.answer}`)
     }
     handleMaybe(card) {
         console.log(`Maybe for ${card.answer}`)
     }
     render() {
+        console.log(this.state)
         return (
             <SwipeCards
 
