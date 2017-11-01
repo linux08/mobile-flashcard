@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native'
 import SwipeCards from 'react-native-swipe-cards'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
 
 
 
@@ -10,14 +10,22 @@ class Card extends Component {
         super(props);
     }
     render() {
-        return (
 
+        let card = this.props.questions
+        console.log('at card')
+        console.log(card)
+      
+        let cardComponent = card.map((p) => {
             <View style={[styles.card, { backgroundColor: 'blue' }]} >
-                <Text style={styles.text}>Does React Native Work with Android </Text>
+                <Text style={styles.text}>p.question </Text>
                 <TouchableOpacity style={styles.button} onPress={() => alert('press')} >
                     <Text style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}> View Answer </Text>
                 </TouchableOpacity>
             </View>
+        })
+        return (
+            < cardComponent />
+
         )
     }
 }
@@ -41,46 +49,36 @@ class Question extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cards: [
-                { key: 1, text: 'Tomato', backgroundColor: 'red' },
-                { key: 1, text: 'Aubergine', backgroundColor: 'purple' },
-                { key: 1, text: 'Courgette', backgroundColor: 'green' },
-                { key: 1, text: 'Blueberry', backgroundColor: 'blue' },
-                { key: 1, text: 'Umm...', backgroundColor: 'cyan' },
-                { key: 1, text: 'orange', backgroundColor: 'orange' },
-            ]
+            card: []
         };
     }
 
+    componentDidMount() {
+        let data = this.props.deck
+        let name = this.props.navigation.state.params.name
+
+        var exactdata = Object.keys(data).reduce((pre, item) => {
+            return data[name]
+        }, [])
+        this.setState({ card: exactdata })
+    }
+
     handleYup(card) {
-        console.log(`Yup for ${card.text}`)
+        console.log(`Yup for ${card.answer}`)
     }
     handleNope(card) {
-        console.log(`Nope for ${card.text}`)
+        console.log(`Nope for ${card.answer}`)
     }
     handleMaybe(card) {
-        //<Answer />
-        console.log(`Maybe for ${card.text}`)
+        console.log(`Maybe for ${card.answer}`)
     }
     render() {
-        console.log('at question')
-       // console.log(this.props.deck)
-        // let deck = this.props.deck
-
-        // data = Object.keys(deck).reduce((pre, item) => {
-        //   let b = item.map((b) =>{
-        //     console.log(b)
-        //   })
-        //   console.log(b)
-        //     return pre
-        // }, [])
-        // console.log(data)
         return (
             <SwipeCards
 
                 stack={true}
-                cards={this.state.cards}
-                renderCard={(cardData) => <Card  {...cardData} />}
+                cards={this.state.card.questions}
+                renderCard={(cardData) => <Card {...this.state.card} {...cardData} />}
                 renderNoMoreCards={() => <NoMoreCards />}
                 handleYup={this.handleYup}
                 handleNope={this.handleNope}
@@ -92,8 +90,6 @@ class Question extends Component {
 }
 
 const styles = StyleSheet.create({
-
-
 
     card: {
         marginTop: 200,
@@ -132,11 +128,11 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-    
-        return {
-            deck: state
-        }
+
+    return {
+        deck: state
     }
-    
-    
-    export default connect(mapStateToProps)(Question)
+}
+
+
+export default connect(mapStateToProps)(Question)

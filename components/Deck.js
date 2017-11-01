@@ -10,7 +10,9 @@ class Deck extends Component {
     quiz = () => {
         const name = this.props.navigation.state.params.name
         const valLength = this.props.navigation.state.params.length
-        this.props.navigation.navigate('Question', { name: name, length: valLength })
+        this.props.navigation.navigate('Question', { name: name, length: valLength },{
+            params: {param: name},
+        })
     }
 
     render() {
