@@ -35,22 +35,50 @@ class NoMoreCards extends Component {
     }
 
     render() {
-        return (
-            <View>
+        const { correct, wrong, name } = this.props
+        let total = correct + wrong
+        console.log(correct, wrong, total, name)
 
-                <Text style={styles.noMoreCardsText}>No more cards</Text>
-            </View>
+        return (
+            <View style={styles.noMoreCardsText} >
+
+                <Text style={{ marginTop: 40, fontSize: 40, }} >Quiz result</Text>
+
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <Text style={[styles.text, { margin: 30 }]}>Correct {correct}</Text>
+                    <Text style={[styles.text, { margin: 30 }]}>Wrong {wrong}</Text>
+                </View>
+
+
+                <View style={styles.box}>
+                    <Text style={styles.score}>{Math.round((correct / total) * 100)}%</Text>
+                </View>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <TouchableOpacity style={styles.resultbutton}
+                        onPress={() => console.log('jfj')}>
+                        <Text style={styles.text}> Restart</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.resultbutton}
+                        onPress={() => console.log('jfj')}>
+                        <Text style={styles.text}> Restart</Text>
+                    </TouchableOpacity>
+                </View>
+            </View >
         )
     }
 }
 
+{/* this.props.navigation.navigate('Question', { name: name }, {params: { param: name }})} */ }
+{/* //onPress={() => this.props.navigation.navigate('Deck', { name: name, length: total })} */ }
 class Question extends Component {
     constructor(props) {
         super(props);
         this.state = {
             card: [],
             correct: 0,
-            wrong: 0
+            wrong: 0,
+            name: ''
         };
     }
 
@@ -61,33 +89,33 @@ class Question extends Component {
         var exactdata = Object.keys(data).reduce((pre, item) => {
             return data[name]
         }, [])
-        this.setState({ card: exactdata })
+        this.setState({ card: exactdata, name })
     }
 
-    handleYup(card) {
-        this.setState((state, props) => ({
-            correct: state.correct + 1
-        }));
+    handleYup = (card) => {
+        this.setState(prevState => {
+            return { correct: prevState.correct + 1 }
+        })
         console.log(`Yup for ${card.answer}`)
     }
-    handleNope(card) {
-        this.setState((state, props) => ({
-            wrong: state.wrong + 1
-        }));
+    handleNope = (card) => {
+        this.setState(prevState => {
+            return { wrong: prevState.wrong + 1 }
+        })
         console.log(`Nope for ${card.answer}`)
     }
-    handleMaybe(card) {
+    handleMaybe = (card) => {
         console.log(`Maybe for ${card.answer}`)
     }
     render() {
-        console.log(this.state)
+
         return (
             <SwipeCards
 
                 stack={true}
                 cards={this.state.card.questions}
                 renderCard={(cardData) => <Card {...this.state.card} {...cardData} />}
-                renderNoMoreCards={() => <NoMoreCards />}
+                renderNoMoreCards={() => <NoMoreCards {...this.state} />}
                 handleYup={this.handleYup}
                 handleNope={this.handleNope}
                 handleMaybe={this.handleMaybe}
@@ -98,6 +126,12 @@ class Question extends Component {
 }
 
 const styles = StyleSheet.create({
+    text: {
+        fontSize: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+    },
 
     card: {
         marginTop: 200,
@@ -112,7 +146,10 @@ const styles = StyleSheet.create({
     },
 
     noMoreCardsText: {
-        fontSize: 22,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+
     },
     button: {
         justifyContent: 'center',
@@ -126,12 +163,36 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         margin: 50
     },
+    resultbutton: {
+        backgroundColor: '#FF00FF',
+        padding: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+        height: 45,
+        borderRadius: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 30
+
+    },
     text: {
         fontSize: 25,
         fontFamily: 'sans-serif-condensed',
         justifyContent: 'center',
         alignItems: 'center'
 
+    },
+    box: {
+        width: 200,
+        height: 200,
+        borderRadius: 10,
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#00FF00'
+    },
+    score: {
+        fontSize: 50,
     }
 })
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, ScrollView, Button, FlatList, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Button, FlatList, TouchableOpacity, Animated } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import Swipeout from 'react-native-swipeout'
 import { connect } from 'react-redux'
@@ -8,11 +8,17 @@ import { getDecks } from '../actions/index'
 
 class Home extends Component {
     state = {
-        loaded: false
+        loaded: false,
+        fadeAnim: new Animated.Value(0)
+
     }
     componentDidMount() {
         this.props.getDecks()
         // API.removeDeck()
+    }
+
+    pressDeck = () => {
+        this.props.navigation.navigate('Deck', { name: obj.item.title, length: obj.item.amount })
     }
 
     _keyExtractor = (item, index) => item.id;
