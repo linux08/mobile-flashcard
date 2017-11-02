@@ -9,20 +9,21 @@ export function addCardToDeck(title, data) {
         .then((result) => {
             const deck = JSON.parse(result)
             deck[title].questions.push(data)
-             AsyncStorage.setItem(key, JSON.stringify(deck))
-             return JSON.parse(result)
+            AsyncStorage.setItem(key, JSON.stringify(deck))
+            return JSON.parse(result)
         })
 }
 
 export function removeDeck() {
 
     return AsyncStorage.getItem(key)
-    .then((result) => {
-        const deck = JSON.parse(result)
-        deck[title] = null
-         AsyncStorage.setItem(key, JSON.stringify(deck))
-         return JSON.parse(result)
-    })
+        .then((result) => {
+            const deck = JSON.parse(result)
+            deck[key] = undefined
+            delete data[key]
+            AsyncStorage.setItem(key, JSON.stringify(deck))
+            return JSON.parse(result)
+        })
     // AsyncStorage.removeItem(key)
     //     .then((er) => {
     //         console.log(er)
@@ -35,7 +36,6 @@ export function removeDeck() {
 export function getDecks() {
     return AsyncStorage.getItem(key)
         .then((results) => {
-            console.log(results)
             return JSON.parse(results)
         })
 }

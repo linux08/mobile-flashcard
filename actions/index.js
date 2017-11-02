@@ -24,14 +24,11 @@ export function addCardToDeck(deck) {
     }
 }
 
-// export function addCardToDeck(title, data)
 
 export const addCard = (title,data) => {
     return function (dispatch) {
         return API.addCardToDeck(title,data)
             .then((resp) => {
-                console.log('hehe')
-                console.log(resp)
                dispatch(addCardToDeck(resp))
             })
             .catch((err) => {
@@ -43,11 +40,7 @@ export const addCard = (title,data) => {
 export const getDecks = () => {
     return function (dispatch) {
         return API.getDecks()
-            .then((resp)=> {dispatch(loadingDecks())
-            return resp})
             .then((resp) => {
-                console.log('hehe')
-                console.log(resp)
                dispatch(receiveDecks(resp))
             })
             .catch((err) => {

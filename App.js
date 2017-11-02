@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import logger from 'redux-logger'
+import { setLocalNotification } from './utils/helpers'
 
 const Tabs = TabNavigator({
   Decks: {
@@ -57,12 +58,16 @@ const middewares = [
 
   // thunk middleware can also accept an extra argument to be passed to each thunk action
   // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
-  thunkMiddleware//, logger
+  thunkMiddleware, logger
 ]
 
 const store = createStore(reducer, compose(applyMiddleware(...middewares)))
 
 export default class App extends React.Component {
+
+  componentDidMount(){
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={store}>

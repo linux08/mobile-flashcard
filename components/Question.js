@@ -10,19 +10,21 @@ class Card extends Component {
         super(props);
     }
     render() {
-
+        const { cardData } = this.props
+        // console.log('index he')
+         console.log(cardData)
         let card = this.props.questions
         let cardComponent = card.map((p, index) => {
             return (<View key={index} style={[styles.card, { backgroundColor: 'blue' }]} >
                 <Text style={styles.text}>{p.question} </Text>
                 <TouchableOpacity style={styles.button} onPress={() => alert(`${p.answer}`)} >
-                    <Text style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}> View Answer </Text>
+                    <Text style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}>Answer </Text>
                 </TouchableOpacity>
             </View>)
         })
         return (
 
-            <View>
+            <View >
                 {cardComponent}
             </View>
         )
@@ -37,7 +39,7 @@ class NoMoreCards extends Component {
     render() {
         const { correct, wrong, name } = this.props
         let total = correct + wrong
-        console.log(correct, wrong, total, name)
+        // console.log(correct, wrong, total, name)
 
         return (
             <View style={styles.noMoreCardsText} >
@@ -61,7 +63,7 @@ class NoMoreCards extends Component {
 
                     <TouchableOpacity style={styles.resultbutton}
                         onPress={() => console.log('jfj')}>
-                        <Text style={styles.text}> Restart</Text>
+                        <Text style={styles.text}>  Deck </Text>
                     </TouchableOpacity>
                 </View>
             </View >
@@ -114,7 +116,7 @@ class Question extends Component {
 
                 stack={true}
                 cards={this.state.card.questions}
-                renderCard={(cardData) => <Card {...this.state.card} {...cardData} />}
+                renderCard={(cardData, index) => <Card order={index + 1} {...this.state.card} cardData ={cardData} />}
                 renderNoMoreCards={() => <NoMoreCards {...this.state} />}
                 handleYup={this.handleYup}
                 handleNope={this.handleNope}

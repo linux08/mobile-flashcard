@@ -17,13 +17,12 @@ class AddCard extends Component {
             question: this.state.question,
             answer: this.state.answer
         }
-        this.props.addCard(this.props.navigation.state.params.name,data)
+        this.props.addCard(this.props.navigation.state.params.name, data)
+        this.props.navigation.navigate('Deck', { name: this.props.navigation.state.params.name, length: this.props.navigation.state.params.length })
     }
 
 
     render() {
-        console.log(this.props.deck)
-        
         return (
             <View style={styles.container}>
                 <View style={styles.subcontainer}>
