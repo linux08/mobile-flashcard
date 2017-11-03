@@ -8,12 +8,9 @@ class NoMoreCards extends Component {
     }
 
     render() {
-        // this.props.navigation.navigate('Question', { name: name }, { params: { param: name } })
 
-        // onPress = {() => this.props.navigation.navigate('Deck', { name: name, length: total })
         const { correct, wrong, name } = this.props
         let total = correct + wrong
-        console.log(this.props)
 
         return (
             <View style={styles.noMoreCardsText} >
@@ -31,15 +28,15 @@ class NoMoreCards extends Component {
                 </View>
                 <View style={{ flex: 3, flexDirection: 'row' }}>
                     <TouchableOpacity style={styles.resultbutton}
-                        onPress={() =>// console.log('Restart')
-                        this.props.navigation.navigate('Question', { name: name }, { params: { param: name } })
+                        onPress={() =>
+                            this.props.navigation.navigate('Question', { name: name }, { params: { param: name } })
                         }>
                         <Text style={styles.text}> Restart</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.resultbutton}
-                        onPress={() => //console.log('Deck')
-                        this.props.navigation.navigate('Deck', { name: name, length: total })}>
+                        onPress={() =>
+                            this.props.navigation.navigate('Deck', { name: name, length: total })}>
                         <Text style={styles.text}>  Deck </Text>
                     </TouchableOpacity>
                 </View>
