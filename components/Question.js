@@ -10,26 +10,45 @@ class Card extends Component {
         super(props);
     }
     render() {
+
         const { cardData } = this.props
-        // console.log('index he')
-         console.log(cardData)
-        let card = this.props.questions
-        let cardComponent = card.map((p, index) => {
-            return (<View key={index} style={[styles.card, { backgroundColor: 'blue' }]} >
-                <Text style={styles.text}>{p.question} </Text>
-                <TouchableOpacity style={styles.button} onPress={() => alert(`${p.answer}`)} >
+        console.log(this.props)
+        return (
+            <View  style={[styles.card, { backgroundColor: 'blue' }]} >
+                <Text style={styles.text}>{cardData.question} </Text>
+                <TouchableOpacity style={styles.button} onPress={() => alert(`${cardData.answer}`)} >
                     <Text style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}>Answer </Text>
                 </TouchableOpacity>
-            </View>)
-        })
-        return (
-
-            <View >
-                {cardComponent}
             </View>
+
         )
     }
 }
+
+
+// const { cardData } = this.props
+// // console.log('index he')
+// console.log(this.props)
+// let card = this.props.questions
+// //console.log(card)
+// // console.log(card)
+// let cardComponent = card.map((p, index) => {
+//     //console.log(p)
+//     //console.log('index at' ,index)
+//     // console.log(index)
+//     return (<View key={index} style={[styles.card, { backgroundColor: 'blue' }]} >
+//         <Text style={styles.text}>{p.question} </Text>
+//         <TouchableOpacity style={styles.button} onPress={() => alert(`${p.answer}`)} >
+//             <Text style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}>Answer </Text>
+//         </TouchableOpacity>
+//     </View>)
+// })
+
+
+
+// <View >
+//     {cardComponent}
+// </View>
 
 class NoMoreCards extends Component {
     constructor(props) {
@@ -111,13 +130,14 @@ class Question extends Component {
     }
     render() {
 
+
         return (
             <SwipeCards
-
                 stack={true}
                 cards={this.state.card.questions}
-                renderCard={(cardData, index) => <Card order={index + 1} {...this.state.card} cardData ={cardData} />}
+                renderCard={(cardData) => <Card cardData={cardData} />}
                 renderNoMoreCards={() => <NoMoreCards {...this.state} />}
+
                 handleYup={this.handleYup}
                 handleNope={this.handleNope}
                 handleMaybe={this.handleMaybe}
@@ -207,3 +227,19 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps)(Question)
+
+
+
+{/* stack={true} */ }
+
+
+{/* /* <SwipeCards
+        cards={this.state.cards}
+        renderCard={(cardData) => <Card {...cardData} />}
+        renderNoMoreCards={() => <NoMoreCards />}
+ 
+        handleYup={this.handleYup}
+        handleNope={this.handleNope}
+        handleMaybe={this.handleMaybe}
+        hasMaybeAction
+      /> */ }

@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import logger from 'redux-logger'
+import { AsyncStorage } from 'react-native'
 import { setLocalNotification } from './utils/helpers'
 
 const Tabs = TabNavigator({
