@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 
 class Deck extends Component {
 
-    static navigationOptions = ({navigation}) => ({title: navigation.state.params.name})
-    
+    static navigationOptions = ({ navigation }) => ({ title: navigation.state.params.name })
+
 
     quiz = () => {
         const name = this.props.navigation.state.params.name
         const valLength = this.props.navigation.state.params.length
-        this.props.navigation.navigate('Question', { name: name, length: valLength },{
-            params: {param: name},
+        this.props.navigation.navigate('Question', { name: name, length: valLength }, {
+            params: { param: name },
         })
     }
 
@@ -26,7 +26,7 @@ class Deck extends Component {
                 </View>
                 <View style={{ marginTop: 100 }}>
                     <TouchableOpacity style={[styles.button, { backgroundColor: 'white', borderColor: '#bbb', borderWidth: 1 }]} >
-                        <Text style={{ color: 'black' }} onPress={() => this.props.navigation.navigate('Card', { name: name, length: valLength })}> Add Card </Text>
+                        <Text style={{ color: 'black' }} onPress={() => this.props.navigation.navigate('AddCard', { name: name, length: valLength })}> Add Card </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.quiz} >
                         <Text style={{ color: 'white' }}> Start Quiz </Text>
@@ -62,11 +62,11 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state) {
-    
-        return {
-            deck: state
-        }
+
+    return {
+        deck: state
     }
-    
-    
-    export default connect(mapStateToProps)(Deck)
+}
+
+
+export default connect(mapStateToProps)(Deck)

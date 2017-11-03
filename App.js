@@ -36,7 +36,7 @@ const RootTabs = StackNavigator({
       headerTitle: null,
     }
   },
-  Card: {
+  AddCard: {
     screen: AddCard,
     navigationOptions: {
       headerTitle: 'Add Card',
@@ -66,7 +66,7 @@ const store = createStore(reducer, compose(applyMiddleware(...middewares)))
 
 export default class App extends React.Component {
 
-  componentDidMount(){
+  componentDidMount() {
     setLocalNotification()
   }
   render() {
