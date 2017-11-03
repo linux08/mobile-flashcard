@@ -13,13 +13,14 @@ class NoMoreCards extends Component {
         // onPress = {() => this.props.navigation.navigate('Deck', { name: name, length: total })
         const { correct, wrong, name } = this.props
         let total = correct + wrong
+        console.log(this.props)
 
         return (
             <View style={styles.noMoreCardsText} >
 
-                <Text style={{ marginTop: 40, fontSize: 40, }} >Quiz result</Text>
+                <Text style={{ marginTop: 20, fontSize: 40, }} >Quiz result</Text>
 
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{ flex: 2, flexDirection: 'row' }}>
                     <Text style={[styles.text, { margin: 30 }]}>Correct {correct}</Text>
                     <Text style={[styles.text, { margin: 30 }]}>Wrong {wrong}</Text>
                 </View>
@@ -28,14 +29,17 @@ class NoMoreCards extends Component {
                 <View style={styles.box}>
                     <Text style={styles.score}>{Math.round((correct / total) * 100)}%</Text>
                 </View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{ flex: 3, flexDirection: 'row' }}>
                     <TouchableOpacity style={styles.resultbutton}
-                        onPress={() => console.log('Restart')}>
+                        onPress={() =>// console.log('Restart')
+                        this.props.navigation.navigate('Question', { name: name }, { params: { param: name } })
+                        }>
                         <Text style={styles.text}> Restart</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.resultbutton}
-                        onPress={() => console.log('Deck')}>
+                        onPress={() => //console.log('Deck')
+                        this.props.navigation.navigate('Deck', { name: name, length: total })}>
                         <Text style={styles.text}>  Deck </Text>
                     </TouchableOpacity>
                 </View>

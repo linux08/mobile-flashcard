@@ -7,15 +7,24 @@ class Card extends Component {
         super(props);
     }
     render() {
+        // console.log("at cards")
+        // console.log(this.props)
+        const { cardData,name } = this.props
+        console.log(name)
+        const question = this.props.card.questions
+      //  console.log(this.props.cardKey)
 
-        const { cardData } = this.props
-        console.log(cardData.length)
         return (
-            <View style={[styles.card, { backgroundColor: 'blue' }]} >
-                <Text style={styles.text}>{cardData.question} </Text>
-                <TouchableOpacity style={styles.button} onPress={() => alert(`${cardData.answer}`)} >
-                    <Text style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}>Answer </Text>
-                </TouchableOpacity>
+            <View>
+                <View style={[styles.card, { backgroundColor: 'blue' }]} >
+                    <View>
+                        <Text> Question  1 / {question.length}</Text>
+                    </View>
+                    <Text style={styles.text}>{cardData.question} </Text>
+                    <TouchableOpacity style={styles.button} onPress={() => alert(`${cardData.answer}`)} >
+                        <Text style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}>Answer </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
         )

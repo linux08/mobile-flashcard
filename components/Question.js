@@ -43,14 +43,15 @@ class Question extends Component {
         console.log(`Maybe for ${card.answer}`)
     }
     render() {
-
+        console.log('cardKey')
 
         return (
             <SwipeCards
                 stack={true}
+               // cardKey={cardKey}
                 cards={this.state.card.questions}
-                renderCard={(cardData) => <Card cardData={cardData} />}
-                renderNoMoreCards={() => <NoMoreCards {...this.state} />}
+                renderCard={(cardData) => <Card   cardData={cardData} {...this.state} />}
+                renderNoMoreCards={() => <NoMoreCards {...this.state} {...this.props} />}
 
                 handleYup={this.handleYup}
                 handleNope={this.handleNope}
