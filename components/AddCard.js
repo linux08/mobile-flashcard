@@ -13,12 +13,13 @@ class AddCard extends Component {
 
     submit = () => {
          const { name } = this.props.navigation.state.params
-         console.log(name)
         const data = {
             question: this.state.question,
             answer: this.state.answer
         }
         this.props.addCard(name, data)
+        console.log('at add card')
+        console.log(name)
         this.props.navigation.navigate('Deck', { name: this.props.navigation.state.params.name, length: this.props.navigation.state.params.length })
     }
 

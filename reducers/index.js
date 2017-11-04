@@ -5,16 +5,20 @@ function entries(state = {}, action) {
   switch (action.type) {
 
     case 'RECEIVE_DECK':
-      return { ...state, ...action.decks}
+      return action.decks
 
     case 'ADD_CARD_TO_DECK':
-    console.log('add card to deck')
-    // console.log(action.data)
-    // console.log(action.title)
-   let newState = state
-   newState[action.title].questions.push(action.data)
+  
+
+    var newState = state;
+    newState[action.title].questions.push(action.data);
+    return newState
+    //let newState = state[action.title].questions.push(action.data)
+   //state[action.title].questions.push(action.data)
+  // // console.log('clicked add card to deck')
+  //  console.log(newState)
    
-      return newState
+  //     return {...state,newState}
     default:
       return state
   }

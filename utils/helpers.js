@@ -3,10 +3,9 @@ import { AsyncStorage } from 'react-native'
 
 const key = 'Flashcard:Lin'
 
-
 function createNotification () {
     return {
-      title: 'Log your stats!',
+      title: 'Take A quiz!',
       body: "👋 don't forget to take a quiz today!",
       ios: {
         sound: true,
@@ -35,7 +34,7 @@ export function setLocalNotification() {
                             let tomorrow = new Date()
                             tomorrow.setDate(tomorrow.getDate() + 1)
                             tomorrow.setHours(20)
-                            tomorrow.setMintutes(0)
+                            tomorrow.setMinutes(0)
 
                             Notifications.scheduleLocalNotificationsAsync(
                                 createNotification(),

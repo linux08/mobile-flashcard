@@ -8,14 +8,14 @@ class Card extends Component {
     }
     render() {
 
-        const { cardData, name } = this.props
+        const { cardData, name,position } = this.props
         const question = this.props.card.questions
 
         return (
             <View>
                 <View style={[styles.card, { backgroundColor: 'blue' }]} >
                     <View>
-                        <Text> Question  1 / {question.length}</Text>
+                        <Text> Question  {position} / {question.length}</Text>
                     </View>
                     <Text style={styles.text}>{cardData.question} </Text>
                     <TouchableOpacity style={styles.button} onPress={() => alert(`${cardData.answer}`)} >

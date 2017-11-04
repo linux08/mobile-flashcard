@@ -13,7 +13,8 @@ class Question extends Component {
             card: [],
             correct: 0,
             wrong: 0,
-            name: ''
+            name: '',
+            position: 1
         };
     }
 
@@ -29,13 +30,13 @@ class Question extends Component {
 
     handleYup = (card) => {
         this.setState(prevState => {
-            return { correct: prevState.correct + 1 }
+            return { correct: prevState.correct + 1, position: prevState.position + 1}
         })
         console.log(`Yup for ${card.answer}`)
     }
     handleNope = (card) => {
         this.setState(prevState => {
-            return { wrong: prevState.wrong + 1 }
+            return { wrong: prevState.wrong + 1, position: prevState.position + 1 }
         })
         console.log(`Nope for ${card.answer}`)
     }

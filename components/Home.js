@@ -14,7 +14,7 @@ class Home extends Component {
     }
     componentDidMount() {
         this.props.getDecks()
-        // API.removeDeck()
+       //  API.clearDeck()
     }
 
     pressDeck = () => {
@@ -22,6 +22,10 @@ class Home extends Component {
     }
 
     _keyExtractor = (item, index) => item.id;
+
+    onRemove = () => {
+        
+    }
 
     renderList = (obj) => {
         var swipeoutBtns = [
@@ -36,7 +40,7 @@ class Home extends Component {
 
         return (
 
-            <Swipeout right={swipeoutBtns} autoClose backgroundColor="#faebd7" >
+            <Swipeout right={swipeoutBtns}  onPress={this.onRemove} autoClose backgroundColor="#faebd7" >
 
                 <TouchableOpacity style={[styles.container, { backgroundColor: '#FFF' }]}
                     onPress={() => this.props.navigation.navigate('Deck', { name: obj.item.title, length: obj.item.amount })}>
@@ -73,8 +77,8 @@ class Home extends Component {
         return (
             (data.length == 0) ?
                 <View>
-                    <View>
-                        <Text> No Deck at the moment </Text>
+                    <View style={{ marginTop: 50,justifyContent: 'center',alignItems: 'center'}}>
+                        <Text style={{justifyContent:'center', alignItems: 'center'}}> No Deck at the moment </Text>
                     </View>
                     <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
                         onPress={() => this.props.navigation.navigate(

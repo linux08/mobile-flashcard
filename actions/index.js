@@ -1,23 +1,17 @@
 import * as API from '../utils/api'
 
 
-export function receiveDecks(decks) {
+export const receiveDecks =  ( decks ) => {
     return {
         type: 'RECEIVE_DECK',
         decks
     }
 }
 
-export function loadingDecks() {
-    return {
-        type: 'LOADING_DECK',
-    
-    }
-}
 
 
 
-export function addCardToDeck(title,data) {
+export const addCardToDeck  = (title,data) => {
     return {
         type: 'ADD_CARD_TO_DECK',
         title,

@@ -8,9 +8,10 @@ class Deck extends Component {
 
 
     quiz = () => {
+        let { deck } = this.props
         const name = this.props.navigation.state.params.name
-        const valLength = this.props.navigation.state.params.length
-        console.log(valLength)
+        const valLength = deck[name].questions.length
+    
         if (valLength  < 1) {
             alert('No quiz available kindly add card')
         }
@@ -22,8 +23,11 @@ class Deck extends Component {
     }
 
     render() {
+        let { deck } = this.props
         const name = this.props.navigation.state.params.name
-        const valLength = this.props.navigation.state.params.length
+        const valLength = deck[name].questions.length || []
+
+
         return (
             <View style={styles.container} >
                 <View >
