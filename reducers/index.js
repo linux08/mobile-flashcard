@@ -9,9 +9,12 @@ function entries(state = {}, action) {
 
     case 'ADD_CARD_TO_DECK':
     console.log('add card to deck')
-    console.log(action.data)
-    console.log(action)
-      return {...state,...action.deck}
+    // console.log(action.data)
+    // console.log(action.title)
+   let newState = state
+   newState[action.title].questions.push(action.data)
+   
+      return newState
     default:
       return state
   }

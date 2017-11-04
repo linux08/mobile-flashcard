@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity,KeyboardAvoidingView } from 'react-native'
 import * as API from '../utils/api'
 import { connect } from 'react-redux'
 import { addCard } from '../actions/index'
@@ -13,18 +13,20 @@ class AddCard extends Component {
 
     submit = () => {
          const { name } = this.props.navigation.state.params
+         console.log(name)
         const data = {
             question: this.state.question,
             answer: this.state.answer
         }
         this.props.addCard(name, data)
-       // this.props.navigation.navigate('Deck', { name: this.props.navigation.state.params.name, length: this.props.navigation.state.params.length })
+        this.props.navigation.navigate('Deck', { name: this.props.navigation.state.params.name, length: this.props.navigation.state.params.length })
     }
 
 
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
+            
                 <View style={styles.subcontainer}>
                     <Text style={styles.text} > Question </Text>
                     <TextInput style={styles.textinput}
@@ -44,7 +46,7 @@ class AddCard extends Component {
                     <Text style={{ color: 'white' }}> Submit </Text>
                 </TouchableOpacity>
 
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -66,7 +68,9 @@ const styles = StyleSheet.create({
         height: 45,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 5
+        borderRadius: 5,
+        marginLeft: 70,
+        marginRight: 70
     },
     subcontainer: {
         padding: 10,
