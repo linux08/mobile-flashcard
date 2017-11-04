@@ -7,12 +7,9 @@ class Card extends Component {
         super(props);
     }
     render() {
-        // console.log("at cards")
-        // console.log(this.props)
-        const { cardData,name } = this.props
-        console.log(name)
+
+        const { cardData, name } = this.props
         const question = this.props.card.questions
-      //  console.log(this.props.cardKey)
 
         return (
             <View>

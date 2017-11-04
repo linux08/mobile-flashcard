@@ -10,9 +10,15 @@ class Deck extends Component {
     quiz = () => {
         const name = this.props.navigation.state.params.name
         const valLength = this.props.navigation.state.params.length
-        this.props.navigation.navigate('Question', { name: name, length: valLength }, {
-            params: { param: name },
-        })
+        console.log(valLength)
+        if (valLength  < 1) {
+            alert('No quiz available kindly add card')
+        }
+        else {
+            this.props.navigation.navigate('Question', { name: name, length: valLength }, {
+                params: { param: name },
+            })
+        }
     }
 
     render() {

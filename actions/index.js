@@ -17,10 +17,11 @@ export function loadingDecks() {
 
 
 
-export function addCardToDeck(deck) {
+export function addCardToDeck(deck,data) {
     return {
         type: 'ADD_CARD_TO_DECK',
-        deck
+        deck,
+        data
     }
 }
 
@@ -29,7 +30,7 @@ export const addCard = (title,data) => {
     return function (dispatch) {
         return API.addCardToDeck(title,data)
             .then((resp) => {
-               dispatch(addCardToDeck(resp))
+               dispatch(addCardToDeck(resp,data))
             })
             .catch((err) => {
                 console.log(err)
