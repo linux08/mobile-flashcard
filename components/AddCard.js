@@ -1,31 +1,50 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity,KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import * as API from '../utils/api'
 import { connect } from 'react-redux'
 import { addCard } from '../actions/index'
 
 class AddCard extends Component {
 
-    state = {
-        question: '',
-        answer: ''
+    // componentDidUpdate() {
+    //     const { name, length } = this.props.navigation.state.params
+    //     console.log('at comp did update')
+    //     console.log(name)
+    //     console.log(length)
+
+    // }
+    componentDidMount() {
+        const { name, length } = this.props.navigation.state.params
+        this.setState({ questionLength: length })
     }
 
+    state = {
+        question: '',
+        answer: '',
+        questionLength: 0
+    }
+
+
     submit = () => {
-         const { name } = this.props.navigation.state.params
+        const { name, length } = this.props.navigation.state.params
         const data = {
             question: this.state.question,
             answer: this.state.answer
         }
+        console.log('at submit')
         this.props.addCard(name, data)
-        this.props.navigation.navigate('Deck', { name: this.props.navigation.state.params.name, length: this.props.navigation.state.params.length })
+        let newLength = length + 1
+        console.log('newLength')
+        console.log(newLength)
+    
+        this.props.navigation.navigate('Deck', { name: name, length: newLength  })
     }
 
 
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-            
+
                 <View style={styles.subcontainer}>
                     <Text style={styles.text} > Question </Text>
                     <TextInput style={styles.textinput}
@@ -101,3 +120,4 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps, { addCard })(AddCard)
+

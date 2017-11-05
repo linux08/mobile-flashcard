@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native'
 
 
-const key = 'Flashcard:Lin'
+const key = 'Flashcard:Liin'
 
 
 export function addCardToDeck(title, data) {

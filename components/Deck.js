@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import { getDecks, deleteDeck } from '../actions/index'
+
 
 class Deck extends Component {
 
     static navigationOptions = ({ navigation }) => ({ title: navigation.state.params.name })
 
+    componentDidMount() {
+        this.props.getDecks()
+        //  API.clearDeck()
+    }
 
     quiz = () => {
         let { deck } = this.props
@@ -24,15 +30,17 @@ class Deck extends Component {
 
     render() {
         let { deck } = this.props
+
         const name = this.props.navigation.state.params.name
 
-        if (deck[name] === undefined) {
-            valLength = 0
-        }
-        
-        else {
-            valLength = deck[name].questions.length
-        }
+        // if (deck[name] === undefined) {
+        //     valLength = 0
+        // }
+        console.log(name)
+        console.log(deck)
+        // else {
+        valLength = deck[name].questions.length
+        //s}
 
 
         return (
@@ -86,4 +94,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(Deck)
+export default connect(mapStateToProps,{ getDecks})(Deck)

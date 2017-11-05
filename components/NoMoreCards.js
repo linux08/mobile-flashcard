@@ -3,9 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 
 class NoMoreCards extends Component {
-    constructor(props) {
-        super(props);
-    }
+   
 
     render() {
 

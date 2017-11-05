@@ -10,7 +10,9 @@ class AddDeck extends Component {
     }
     submit = () => {
         API.saveDeckTitle(this.state.text)
-        this.props.navigation.navigate('Deck', { name: this.state.text, length: 0 })
+        console.log(this.state.text)
+        //this.props.navigation.navigate('Home')
+       this.props.navigation.navigate('Deck', { name: this.state.text, length: 0 })
     
     }
 

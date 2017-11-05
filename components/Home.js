@@ -15,7 +15,7 @@ class Home extends Component {
     }
     componentDidMount() {
         this.props.getDecks()
-        //  API.clearDeck()
+       //  API.clearDeck()
     }
 
     pressDeck = () => {
