@@ -11,8 +11,8 @@ class Deck extends Component {
         let { deck } = this.props
         const name = this.props.navigation.state.params.name
         const valLength = deck[name].questions.length
-    
-        if (valLength  < 1) {
+
+        if (valLength < 1) {
             alert('No quiz available kindly add card')
         }
         else {
@@ -25,7 +25,14 @@ class Deck extends Component {
     render() {
         let { deck } = this.props
         const name = this.props.navigation.state.params.name
-        const valLength = deck[name].questions.length || []
+
+        if (deck[name] === undefined) {
+            valLength = 0
+        }
+        
+        else {
+            valLength = deck[name].questions.length
+        }
 
 
         return (

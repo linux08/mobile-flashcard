@@ -4,21 +4,21 @@ function entries(state = {}, action) {
   console.log(action.type)
   switch (action.type) {
 
+    case 'DELETE_DECK':
+      let newstate = state;
+      delete newstate[action.title]
+      console.log(newstate)
+      return newstate
+
     case 'RECEIVE_DECK':
       return action.decks
 
     case 'ADD_CARD_TO_DECK':
-  
+      let newState = state;
+      newState[action.title].questions.push(action.data);
+      return newState
 
-    var newState = state;
-    newState[action.title].questions.push(action.data);
-    return newState
-    //let newState = state[action.title].questions.push(action.data)
-   //state[action.title].questions.push(action.data)
-  // // console.log('clicked add card to deck')
-  //  console.log(newState)
-   
-  //     return {...state,newState}
+
     default:
       return state
   }

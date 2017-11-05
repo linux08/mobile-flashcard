@@ -14,29 +14,27 @@ export function addCardToDeck(title, data) {
         })
 }
 
-export function removeDeck() {
-
+export function removeDeck(deck) {
     return AsyncStorage.getItem(key)
         .then((result) => {
-            const deck = JSON.parse(result)
-            deck[key] = undefined
-            delete data[key]
-            AsyncStorage.setItem(key, JSON.stringify(deck))
-            return JSON.parse(result)
+            const data = JSON.parse(result)
+            data[deck.title] = undefined
+            delete data[deck.title]
+            AsyncStorage.setItem(key, JSON.stringify(data))
         })
-   
+
 }
 
 export function clearDeck() {
-    
-         AsyncStorage.removeItem(key)
-             .then((er) => {
-                 console.log(er)
-                 // keys k1 & k2 removed, if they existed
-                 // do most stuff after removal (if you want)
-                 console.log('successfully deleted')
-             });
-    }
+
+    AsyncStorage.removeItem(key)
+        .then((er) => {
+            console.log(er)
+            // keys k1 & k2 removed, if they existed
+            // do most stuff after removal (if you want)
+            console.log('successfully deleted')
+        });
+}
 
 
 export function getDecks() {

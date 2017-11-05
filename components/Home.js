@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import Swipeout from 'react-native-swipeout'
 import { connect } from 'react-redux'
 import * as API from '../utils/api'
-import { getDecks } from '../actions/index'
+import { getDecks, deleteDeck } from '../actions/index'
 
 class Home extends Component {
     state = {
@@ -14,7 +14,7 @@ class Home extends Component {
     }
     componentDidMount() {
         this.props.getDecks()
-       //  API.clearDeck()
+        //  API.clearDeck()
     }
 
     pressDeck = () => {
@@ -23,8 +23,9 @@ class Home extends Component {
 
     _keyExtractor = (item, index) => item.id;
 
-    onRemove = () => {
-        
+    onRemove = (obj) => {
+        this.props.deleteDeck(obj.item.title, obj.item)
+        // API.removeDeck(obj.item)
     }
 
     renderList = (obj) => {
@@ -32,7 +33,10 @@ class Home extends Component {
             {
 
                 text: 'Delete',
-                backgroundColor: 'red'
+                backgroundColor: 'red',
+                onPress: () => {
+                    this.onRemove(obj);
+                }
             }
         ]
 
@@ -40,7 +44,7 @@ class Home extends Component {
 
         return (
 
-            <Swipeout right={swipeoutBtns}  onPress={this.onRemove} autoClose backgroundColor="#faebd7" >
+            <Swipeout right={swipeoutBtns} autoClose backgroundColor="#faebd7" >
 
                 <TouchableOpacity style={[styles.container, { backgroundColor: '#FFF' }]}
                     onPress={() => this.props.navigation.navigate('Deck', { name: obj.item.title, length: obj.item.amount })}>
@@ -75,18 +79,7 @@ class Home extends Component {
         }
 
         return (
-            (data.length == 0) ?
-                <View>
-                    <View style={{ marginTop: 50,justifyContent: 'center',alignItems: 'center'}}>
-                        <Text style={{justifyContent:'center', alignItems: 'center'}}> No Deck at the moment </Text>
-                    </View>
-                    <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
-                        onPress={() => this.props.navigation.navigate(
-                            'AddDeck')} >
-                        <MaterialIcons name="add-circle-outline" size={32} color="green" />
-                    </TouchableOpacity>
-                </View>
-                :
+            (data.length > 0) ?
                 <ScrollView style={{ flex: 1, padding: 20 }}>
                     <View style={{ marginTop: 30 }} >
                         <FlatList data={data}
@@ -101,6 +94,17 @@ class Home extends Component {
                     </TouchableOpacity>
 
                 </ScrollView >
+                :
+                <View>
+                    <View style={{ marginTop: 50, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ justifyContent: 'center', alignItems: 'center' }}> No Deck at the moment </Text>
+                    </View>
+                    <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
+                        onPress={() => this.props.navigation.navigate(
+                            'AddDeck')} >
+                        <MaterialIcons name="add-circle-outline" size={32} color="green" />
+                    </TouchableOpacity>
+                </View>
 
         )
     }
@@ -148,5 +152,5 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { getDecks })(Home)
+export default connect(mapStateToProps, { getDecks, deleteDeck })(Home)
 
