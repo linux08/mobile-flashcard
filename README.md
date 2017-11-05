@@ -14,3 +14,5 @@ To get started :
       * Make sure your phone and your Computer are on the same network
       * scan the Qr-code
       * App loads on your phone
+  * To answer a question
+      ** Swipe Right if your answer is correct and left if otherwise
