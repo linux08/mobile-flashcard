@@ -1,4 +1,4 @@
-
+import { combineReducers } from 'redux';
 
 function entries(state = {}, action) {
   console.log(action.type)
@@ -24,5 +24,21 @@ function entries(state = {}, action) {
   }
 }
 
-export default entries
+
+export function deckIsLoading(state = false, action) {
+  switch (action.type) {
+      case 'DECK_IS_LOADING':
+          return action.isLoading;
+
+      default:
+          return state;
+  }
+}
+
+export default combineReducers({
+  entries,
+  deckIsLoading
+});
+
+
 

@@ -66,7 +66,7 @@ class Question extends Component {
 function mapStateToProps(state) {
 
     return {
-        deck: state
+        deck: state.entries
     }
 }
 

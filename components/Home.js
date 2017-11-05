@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, ScrollView, Button, FlatList, TouchableOpacity, Animated } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, View, ScrollView, Button, FlatList, TouchableOpacity, Animated } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import Swipeout from 'react-native-swipeout'
 import { connect } from 'react-redux'
@@ -9,7 +9,8 @@ import { getDecks, deleteDeck } from '../actions/index'
 class Home extends Component {
     state = {
         loaded: false,
-        fadeAnim: new Animated.Value(1)
+        fadeAnim: new Animated.Value(1),
+        animating: true
 
     }
     componentDidMount() {
@@ -63,6 +64,7 @@ class Home extends Component {
 
     render() {
         let a = this.props.deck
+        console.log(a)
         let data
         if (a === null) {
             data = []
@@ -76,37 +78,59 @@ class Home extends Component {
                 })
                 return pre
             }, [])
+            console.log(data)
         }
 
-        return (
-            (data.length > 0) ?
-                <ScrollView style={{ flex: 1, padding: 20 }}>
-                    <View style={{ marginTop: 30 }} >
-                        <FlatList data={data}
-                            renderItem={this.renderList}
-                            keyExtractor={this._keyExtractor}
+        if (this.props.isLoading === false) {
 
-                        />
-                    </View>
-                    <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
-                        onPress={() => this.props.navigation.navigate('AddDeck')} >
-                        <MaterialIcons name="add-circle-outline" size={32} color="green" />
-                    </TouchableOpacity>
 
-                </ScrollView >
-                :
-                <View>
-                    <View style={{ marginTop: 50, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ justifyContent: 'center', alignItems: 'center' }}> No Deck at the moment </Text>
-                    </View>
-                    <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
-                        onPress={() => this.props.navigation.navigate(
-                            'AddDeck')} >
-                        <MaterialIcons name="add-circle-outline" size={32} color="green" />
-                    </TouchableOpacity>
+            const animating = this.state.animating
+            return (
+                <View style={styles.spinner}>
+                    <ActivityIndicator
+                        animating={animating}
+                        color='#bc2b78'
+                        size="large"
+                        style={styles.activityIndicator} />
                 </View>
+            )
+        }
 
-        )
+        else {
+            if (data.length > 0) {
+                return (
+                    <ScrollView style={{ flex: 1, padding: 20 }}>
+                        <View style={{ marginTop: 30 }} >
+                            <FlatList data={data}
+                                renderItem={this.renderList}
+                                keyExtractor={this._keyExtractor}
+
+                            />
+                        </View>
+                        <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
+                            onPress={() => this.props.navigation.navigate('AddDeck')} >
+                            <MaterialIcons name="add-circle-outline" size={32} color="green" />
+                        </TouchableOpacity>
+
+                    </ScrollView >
+                )
+            }
+            else {
+                return (
+                    <View>
+                        <View style={{ marginTop: 50, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ justifyContent: 'center', alignItems: 'center' }}> No Deck at the moment </Text>
+                        </View>
+                        <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
+                            onPress={() => this.props.navigation.navigate(
+                                'AddDeck')} >
+                            <MaterialIcons name="add-circle-outline" size={32} color="green" />
+                        </TouchableOpacity>
+                    </View>
+
+                )
+            }
+        }
     }
 }
 
@@ -141,13 +165,29 @@ const styles = StyleSheet.create({
         margin: 9,
         padding: 15,
         borderRadius: 4
-    }
+    },
+    spinner: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 70
+    },
+   activityIndicator: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 80
+   }
 })
+
+
 
 function mapStateToProps(state) {
 
     return {
-        deck: state
+        deck: state.entries,
+        isLoading: state.deckIsLoading
+
     }
 }
 
