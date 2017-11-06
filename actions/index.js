@@ -1,6 +1,22 @@
 import * as API from '../utils/api'
 
 
+
+export const addNewDeck = (deck) => {
+    return {
+        type: 'ADD_DECK',
+        deck
+    }
+}
+
+
+export const emptyDecks = () => {
+    return {
+        type: 'EMPTY_DECK',
+        
+    }
+}
+
 export const receiveDecks = (decks) => {
     return {
         type: 'RECEIVE_DECK',
@@ -33,11 +49,10 @@ export const addCardToDeck = (title, data, resp) => {
     }
 }
 
-export const addDeckSuccess = (title,response) => {
-    return {
-        type: 'ADD_DECK',
-        title,
-        response
+export const emptyDeck = ( data) => {
+    return function (dispatch) {
+        return API.clearDeck(  dispatch(emptyDecks()))
+
     }
 }
 
@@ -54,12 +69,12 @@ export const deleteDeck = (title, data) => {
 }
 
 
-export const addDeck = (title) => {
+export const addDECK = (title) => {
     return function (dispatch) {
         return API.saveDeckTitle(title)
             .then((resp) => {
                 console.log(resp)
-                dispatch(addDeckSuccess(title,resp))
+                dispatch(addNewDeck(title))
             })
             .catch((err) => {
                 console.log(err)

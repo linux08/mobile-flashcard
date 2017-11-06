@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { ActivityIndicator, StyleSheet, Text, View, ScrollView, Button, FlatList, TouchableOpacity, Animated } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons, MaterialCommunityIcons  } from '@expo/vector-icons'
 import Swipeout from 'react-native-swipeout'
 import { connect } from 'react-redux'
 import * as API from '../utils/api'
-import { getDecks, deleteDeck } from '../actions/index'
+import { getDecks, deleteDeck,emptyDeck } from '../actions/index'
 
 class Home extends Component {
     state = {
@@ -15,7 +15,7 @@ class Home extends Component {
     }
     componentDidMount() {
         this.props.getDecks()
-       //  API.clearDeck()
+        // API.clearDeck()
     }
 
     pressDeck = () => {
@@ -107,10 +107,22 @@ class Home extends Component {
 
                             />
                         </View>
+                        <View>
                         <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
-                            onPress={() => this.props.navigation.navigate('AddDeck')} >
+                            onPress={() => this.props.navigation.navigate(
+                                'AddDeck')} >
                             <MaterialIcons name="add-circle-outline" size={32} color="green" />
                         </TouchableOpacity>
+
+                        <TouchableOpacity   style={{ padding: 10, bottom: 0, alignItems: 'center' }}
+                            onPress={() => this.props.emptyDeck()} >
+                                <MaterialCommunityIcons
+                             name='delete'
+                             color="red"
+                            size={35}
+                                          />
+                        </TouchableOpacity>
+                        </View>
 
                     </ScrollView >
                 )
@@ -121,11 +133,15 @@ class Home extends Component {
                         <View style={{ marginTop: 50, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ justifyContent: 'center', alignItems: 'center' }}> No Deck at the moment </Text>
                         </View>
+                
                         <TouchableOpacity style={{ padding: 10, bottom: 0, alignItems: 'center' }}
                             onPress={() => this.props.navigation.navigate(
                                 'AddDeck')} >
                             <MaterialIcons name="add-circle-outline" size={32} color="green" />
                         </TouchableOpacity>
+
+                       
+                        
                     </View>
 
                 )
@@ -177,7 +193,16 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       height: 80
-   }
+   },
+   iconContainer: {
+    padding: 5,
+    borderRadius: 8,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 20
+  },
 })
 
 
@@ -192,5 +217,5 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { getDecks, deleteDeck })(Home)
+export default connect(mapStateToProps, { getDecks,emptyDeck, deleteDeck })(Home)
 

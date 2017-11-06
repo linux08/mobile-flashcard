@@ -1,10 +1,22 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button,TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import * as API from '../utils/api'
 import { connect } from 'react-redux'
 import { addCard } from '../actions/index'
 
 class AddCard extends Component {
+
+
+    static navigationOptions = ({ navigation }) => (
+        
+          { 
+              headerRight: (
+                  <Button
+                    title={'Home'}
+                    onPress={() =>  navigation.navigate('Home')}
+                  />
+                ),
+           })
 
     // componentDidUpdate() {
     //     const { name, length } = this.props.navigation.state.params

@@ -5,14 +5,37 @@ function entries(state = {}, action) {
   switch (action.type) {
 
     case 'ADD_DECK':
-     
+      console.log('at action.deck')
+      let a = {
+        [action.deck]: {
+          title: action.deck,
+          questions: []
+        }
+      }
+      if (Object.keys(a).length < 0) {
+        console.log('new deck')
+        //console.log(a)
+        //console.log('obj.crre')
+        //console.log(Object.create(a))
+        return { ...a }
+      }
+      else {
+        console.log('old deck')
+        let b = Object.assign(state, a)
+        console.log(b)
+        return b
+      }
+
+    case 'EMPTY_DECK':
+    return {}
+
     case 'DELETE_DECK':
       let newstate = state;
       delete newstate[action.title]
       return newstate
 
     case 'RECEIVE_DECK':
-      return action.decks
+      return {...state,...action.decks}
 
     case 'ADD_CARD_TO_DECK':
       let newState = state;

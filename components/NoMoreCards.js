@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 
 class NoMoreCards extends Component {
-   
 
+        
     render() {
 
         const { correct, wrong, name } = this.props

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity,KeyboardAvoidingView } from 'react-native'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import * as API from '../utils/api'
 import { connect } from 'react-redux'
+import { addDECK } from '../actions/index'
 
 class AddDeck extends Component {
 
@@ -9,19 +10,19 @@ class AddDeck extends Component {
         text: ''
     }
     submit = () => {
-        API.saveDeckTitle(this.state.text)
-        console.log(this.state.text)
+        console.log('at submit')
+        this.props.addDECK(this.state.text)
         //this.props.navigation.navigate('Home')
-       this.props.navigation.navigate('Deck', { name: this.state.text, length: 0 })
-    
+        this.props.navigation.navigate('Deck', { name: this.state.text, length: 1 })
+
     }
 
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-        
+
                 <Text style={styles.text}> What is the title of your new deck? </Text>
-                <TextInput style={styles.textinput} editable={true} maxLength={40}
+                <TextInput k22style={styles.textinput} editable={true} maxLength={40}
                     placeholder="Deck Title"
                     value={this.state.text} onChangeText={text => this.setState({ text })} />
                 <TouchableOpacity style={styles.button} onPress={this.submit} >
@@ -75,4 +76,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(AddDeck)
+export default connect(mapStateToProps, { addDECK })(AddDeck)

@@ -53,7 +53,7 @@ export function getDeck() {
 
 export function saveDeckTitle(data) {
 
-    let b = data
+
     let a = {
         [data]: {
             title: data,
