@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, Keyboard } from 'react-native'
 import * as API from '../utils/api'
 import { connect } from 'react-redux'
 import { addCard } from '../actions/index'
@@ -40,6 +40,7 @@ class AddCard extends Component {
         this.props.addCard(name, data)
         let newLength = length + 1
         this.props.navigation.navigate('Deck', { name: name, length: newLength })
+        Keyboard.dismiss()
     }
 
 

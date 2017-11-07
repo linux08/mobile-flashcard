@@ -40,9 +40,7 @@ class Question extends Component {
         })
         console.log(`Nope for ${card.answer}`)
     }
-    handleMaybe = (card) => {
-        console.log(`Maybe for ${card.answer}`)
-    }
+   
     render() {
         console.log('cardKey')
 
@@ -53,11 +51,8 @@ class Question extends Component {
                 cards={this.state.card.questions}
                 renderCard={(cardData) => <Card   cardData={cardData} {...this.state} />}
                 renderNoMoreCards={() => <NoMoreCards {...this.state} {...this.props} />}
-
                 handleYup={this.handleYup}
                 handleNope={this.handleNope}
-                handleMaybe={this.handleMaybe}
-                hasMaybeAction
             />
         )
     }
