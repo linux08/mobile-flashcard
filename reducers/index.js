@@ -27,7 +27,7 @@ function entries(state = {}, action) {
       }
 
     case 'EMPTY_DECK':
-    return {}
+      return {}
 
     case 'DELETE_DECK':
       let newstate = state;
@@ -35,14 +35,16 @@ function entries(state = {}, action) {
       return newstate
 
     case 'RECEIVE_DECK':
-      return {...state,...action.decks}
+      return { ...state, ...action.decks }
 
     case 'ADD_CARD_TO_DECK':
       let newState = state;
       newState[action.title].questions.push(action.data);
+      console.log('at add card to deck')
+      console.log(newState)
       // console.log(state)
       // console.log(action.resp)
-      return newState
+      return { ... newState }
 
 
     default:

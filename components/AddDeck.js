@@ -22,7 +22,7 @@ class AddDeck extends Component {
             <KeyboardAvoidingView style={styles.container} behavior="padding">
 
                 <Text style={styles.text}> What is the title of your new deck? </Text>
-                <TextInput k22style={styles.textinput} editable={true} maxLength={40}
+                <TextInput style={styles.textinput} editable={true} maxLength={40}
                     placeholder="Deck Title"
                     value={this.state.text} onChangeText={text => this.setState({ text })} />
                 <TouchableOpacity style={styles.button} onPress={this.submit} >

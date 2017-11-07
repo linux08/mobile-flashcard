@@ -66,11 +66,13 @@ class Home extends Component {
         let a = this.props.deck
         console.log(a)
         let data
-        if (a === null) {
+        if (a === null ) {
             data = []
         }
         else {
             data = Object.keys(a).reduce((pre, item) => {
+                console.log('at data error')
+                console.log(a[item])
                 pre.push({
                     id: Math.random(),
                     title: a[item].title,

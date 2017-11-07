@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, TextInput,Button, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { getDecks, deleteDeck } from '../actions/index'
 
@@ -7,20 +7,18 @@ import { getDecks, deleteDeck } from '../actions/index'
 class Deck extends Component {
 
     static navigationOptions = ({ navigation }) => (
-      
-        { title: navigation.state.params.name,
+
+        {
+            title: navigation.state.params.name,
             headerRight: (
                 <Button
-                  title={'Home'}
-                  onPress={() =>  navigation.navigate('Home')}
+                    title={'Home'}
+                    onPress={() => navigation.navigate('Home')}
                 />
-              ),
-         })
+            ),
+        })
 
-    // componentDidMount() {
-    //     this.props.getDecks()
-    //     //  API.clearDeck()
-    // }
+    
 
     quiz = () => {
         let { deck } = this.props
@@ -39,13 +37,15 @@ class Deck extends Component {
 
     render() {
         let { deck } = this.props
+        console.log('at render')
+        console.log(deck)
 
         const name = this.props.navigation.state.params.name
         //console.log(deck)
         // if (deck[name] === undefined) {
         //     valLength = 0
         // }
-        console.log('name  is' ,name)
+    
         console.log(deck)
         // else {
         valLength = deck[name].questions.length
@@ -103,4 +103,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps,{ getDecks})(Deck)
+export default connect(mapStateToProps, { getDecks })(Deck)
