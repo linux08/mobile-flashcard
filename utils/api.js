@@ -29,10 +29,6 @@ export function clearDeck() {
 
     AsyncStorage.removeItem(key)
         .then((er) => {
-            console.log(er)
-            // keys k1 & k2 removed, if they existed
-            // do most stuff after removal (if you want)
-            console.log('successfully deleted')
         });
 }
 
@@ -61,20 +57,6 @@ export function saveDeckTitle(data) {
         }
     }
     return AsyncStorage.mergeItem(key, JSON.stringify(a))
-
-    // return AsyncStorage.setItem(key, a)
-    // .then((result) =>{
-    //     console.log(result)
-    //     return JSON.parse(result)
-    // })
 }
 
 
-
-
-
-
-// getDecks: return all of the decks along with their titles, questions, and answers. 
-// getDeck: take in a single id argument and return the deck associated with that id. 
-// saveDeckTitle: take in a single title argument and add it to the decks. 
-// addCardToDeck: take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title.

@@ -26,7 +26,6 @@ class Home extends Component {
 
     onRemove = (obj) => {
         this.props.deleteDeck(obj.item.title, obj.item)
-        // API.removeDeck(obj.item)
     }
 
     renderList = (obj) => {
