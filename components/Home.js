@@ -71,8 +71,6 @@ class Home extends Component {
         }
         else {
             data = Object.keys(a).reduce((pre, item) => {
-                console.log('at data error')
-                console.log(a[item])
                 pre.push({
                     id: Math.random(),
                     title: a[item].title,

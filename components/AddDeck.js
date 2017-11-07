@@ -10,9 +10,7 @@ class AddDeck extends Component {
         text: ''
     }
     submit = () => {
-        console.log('at submit')
         this.props.addDECK(this.state.text)
-        //this.props.navigation.navigate('Home')
         this.props.navigation.navigate('Deck', { name: this.state.text, length: 1 })
 
     }

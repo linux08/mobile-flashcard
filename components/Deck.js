@@ -18,18 +18,18 @@ class Deck extends Component {
             ),
         })
 
-    
+
 
     quiz = () => {
         let { deck } = this.props
         const name = this.props.navigation.state.params.name
-        const valLength = deck[name].questions.length
+        const valLengt = deck[name].questions.length
 
-        if (valLength < 1) {
+        if (valLengt < 1) {
             alert('No quiz available kindly add card')
         }
         else {
-            this.props.navigation.navigate('Question', { name: name, length: valLength }, {
+            this.props.navigation.navigate('Question', { name: name, length: valLengt }, {
                 params: { param: name },
             })
         }
@@ -37,19 +37,18 @@ class Deck extends Component {
 
     render() {
         let { deck } = this.props
-        console.log('at render')
-        console.log(deck)
+        let valLength
 
         const name = this.props.navigation.state.params.name
-        //console.log(deck)
-        // if (deck[name] === undefined) {
-        //     valLength = 0
-        // }
-    
-        console.log(deck)
-        // else {
-        valLength = deck[name].questions.length
-        //s}
+
+        if (deck[name] === undefined) {
+            valLength = 0
+        }
+
+        
+     else {
+            valLength = deck[name].questions.length
+        }
 
 
         return (

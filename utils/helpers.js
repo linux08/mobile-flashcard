@@ -41,7 +41,7 @@ export function setLocalNotification() {
                     })
             }
         })
-        .catch((error) => {
-            console.log("Error With Notifications - ", error);
+        .catch((err) => {
+            console.log(err);
         })
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, Button,TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import * as API from '../utils/api'
 import { connect } from 'react-redux'
 import { addCard } from '../actions/index'
@@ -8,23 +8,17 @@ class AddCard extends Component {
 
 
     static navigationOptions = ({ navigation }) => (
-        
-          { 
-              headerRight: (
-                  <Button
+
+        {
+            headerRight: (
+                <Button
                     title={'Home'}
-                    onPress={() =>  navigation.navigate('Home')}
-                  />
-                ),
-           })
+                    onPress={() => navigation.navigate('Home')}
+                />
+            ),
+        })
 
-    // componentDidUpdate() {
-    //     const { name, length } = this.props.navigation.state.params
-    //     console.log('at comp did update')
-    //     console.log(name)
-    //     console.log(length)
-
-    // }
+    
     componentDidMount() {
         const { name, length } = this.props.navigation.state.params
         this.setState({ questionLength: length })
@@ -43,13 +37,9 @@ class AddCard extends Component {
             question: this.state.question,
             answer: this.state.answer
         }
-        console.log('at submit')
         this.props.addCard(name, data)
         let newLength = length + 1
-        console.log('newLength')
-        console.log(newLength)
-    
-        this.props.navigation.navigate('Deck', { name: name, length: newLength  })
+        this.props.navigation.navigate('Deck', { name: name, length: newLength })
     }
 
 
