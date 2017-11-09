@@ -17,4 +17,4 @@ To get started :
   * To answer a question
       ** Swipe Right if your answer is correct and left if otherwise
 
-  * Downloadable apk can be  be found             https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40udekot%2FFlashcard-24155311-c4c1-11e  7-b2d2-0a580a781308-signed.apk
+  * Downloadable apk can be  be found             https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40udekot%2FFlashcard-24155311-c4c1-11e7-b2d2-0a580a781308-signed.apk
