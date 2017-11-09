@@ -1,15 +1,25 @@
+
 {
   "expo": {
     "sdkVersion": "21.0.0",
     "orientation": "portrait",
-    "name": "Flashcard",
-    "description": "Mobile-flashcard.",
-    "slug": "Flashcard",
-    "version": "1.0",
+    "name": "mobile-Flashcard",
+    "description": "Simple flashcard",
+    "slug": "mobile-flashcard",
+    "version": "2.0",
+    "notification": {
+      "icon": "http://www.student-scholarships.com/images/made/img/featured/nav_basketball_45_45.png"
+    },
+    "ios": {
+     "bundleIdentifier": "org.udacifitness.exp"
+    },
     "android": {
-      "package": "org.flashcard.exp",
+     "package": "org.udacifitness.exp"
     }
-  },
-
+  }
 }
+
+
+
+
 
